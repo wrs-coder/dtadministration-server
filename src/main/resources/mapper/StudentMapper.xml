@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.demo.Dao.StudentDao">
+    <select id="query" resultType="com.example.demo.Model.JJFZ">
+        select *
+        from t_jjfz;
+    </select>
+    <select id="Stuquery" resultType="com.example.demo.Model.Student">
+        select *
+        from t_student
+        where sno = #{Ssno};
+    </select>
+    <insert id="insert" parameterType="com.example.demo.Model.Student">
+        insert into t_student(sno, sname, sage)
+        values (#{sno}, #{sname}, #{sage});
+    </insert>
+    <delete id="delete" parameterType="com.example.demo.Model.Student">
+        delete
+        from t_student
+        where sno = #{sno};
+    </delete>
+    <update id="update" parameterType="com.example.demo.Model.Student">
+        update
+            t_student
+        SET sname = #{sname},
+            sage  = #{sage}
+        WHERE sno = #{sno};
+    </update>
+</mapper>
