@@ -44,7 +44,7 @@ public class WebConfiguration implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry){
         List<String> excludePath = new ArrayList<>();
         //排除拦截
-        excludePath.add("/student/login");     //登录
+        excludePath.add("/api/login");     //登录
 
         registry.addInterceptor(tokenInterceptor)
                 .addPathPatterns("/**")

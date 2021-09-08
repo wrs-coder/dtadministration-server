@@ -1,11 +1,13 @@
 package com.example.demo.Service;
 
+import com.example.demo.Model.Activity;
 import com.example.demo.Model.Student;
 import com.example.demo.Dao.StudentDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class StudentDaoService {
@@ -14,8 +16,8 @@ public class StudentDaoService {
     private StudentDao std;
 
     //新增
-    public int insert(Student student) {
-        return std.insert(student);
+    public int insertActivity(Activity activity) {
+        return std.insertActivity(activity);
     }
 
     //删除
@@ -29,8 +31,8 @@ public class StudentDaoService {
     }
 
     //查询所有学生信息
-    public List<Student> query() {
-        return std.query();
+    public List<Map<String, Object>> query(String TableName) {
+        return std.query(TableName);
     }
 
 
