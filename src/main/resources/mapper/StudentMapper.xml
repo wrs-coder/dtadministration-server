@@ -7,28 +7,68 @@
         from ${TableName};
     </select>
 
-    <!-- 新增活动 -->
-    <insert id="insertActivity" parameterType="com.example.demo.Model.Activity">
-        insert into DT_activity(a_id, a_name, startTime, endTime, number)
-        values (#{a_id}, #{a_name}, #{startTime}, #{endTime}, #{number});
+    <!-- 新增人员 -->
+    <insert id="insertPeople" parameterType="com.example.demo.Model.People">
+        insert into DT_people( uuid, org_name, org_present, name, sex, nation, birthday, card, nativtion, address
+                             , telephone, workplace, type, sqrd_time, jjfz_time, fzdx_time, rd_time)
+        values (#{uuid}, #{org_name}, #{org_present}, #{name}, #{sex}, #{nation}, #{birthday}, #{card}, #{nativtion},
+                #{address}, #{telephone}, #{workplace}, #{type},
+                #{sqrd_time}, #{jjfz_time}, #{fzdx_time}, #{rd_time});
     </insert>
 
+    <!-- 新增活动 -->
+    <insert id="insertActivity" parameterType="com.example.demo.Model.Activity">
+        insert into DT_activity(uuid, name, startTime, endTime, number)
+        values (#{uuid}, #{name}, #{startTime}, #{endTime}, #{number});
+    </insert>
 
-    <select id="Stuquery" resultType="com.example.demo.Model.Student">
-        select *
-        from t_student
-        where sno = #{Ssno};
-    </select>
-    <delete id="delete" parameterType="com.example.demo.Model.Student">
+    <!-- 删除 -->
+    <delete id="delete" parameterType="integer">
         delete
-        from t_student
-        where sno = #{sno};
+        from ${TableName}
+        where uuid = #{uuid};
     </delete>
-    <update id="update" parameterType="com.example.demo.Model.Student">
+
+    <!-- 单个查询 -->
+    <select id="Stuquery" resultType="map">
+        select *
+        from ${TableName}
+        where name = #{name}
+           or uuid = #{name};
+    </select>
+
+    <!--修改人员信息-->
+    <update id="updatePeople" parameterType="com.example.demo.Model.Activity">
         update
-            t_student
-        SET sname = #{sname},
-            sage  = #{sage}
-        WHERE sno = #{sno};
+            DT_people
+        SET uuid        = #{uuid},
+            org_name    = #{org_name},
+            org_present = #{org_present},
+            name        = #{name},
+            sex         = #{sex},
+            nation      = #{nation},
+            birthday    = #{birthday},
+            card        = #{card},
+            nativtion   = #{nativtion},
+            address     = #{address},
+            telephone   = #{telephone},
+            workplace   = #{workplace},
+            type        = #{type},
+            sqrd_time   = #{sqrd_time},
+            jjfz_time   = #{jjfz_time},
+            fzdx_time   = #{fzdx_time},
+            rd_time     = #{rd_time}
+        WHERE uuid = #{uuid};
+    </update>
+
+    <!--修改活动信息-->
+    <update id="updateActivity" parameterType="com.example.demo.Model.Activity">
+        update
+            DT_activity
+        SET name      = #{name},
+            startTime = #{startTime},
+            endTime   = #{endTime},
+            number    = #{number}
+        WHERE uuid = #{uuid};
     </update>
 </mapper>

@@ -2,7 +2,7 @@ package com.example.demo.Controller;
 
 import com.example.demo.Dao.StudentDao;
 import com.example.demo.Model.Activity;
-import com.example.demo.Model.Student;
+import com.example.demo.Model.People;
 import com.example.demo.Model.Users;
 import com.example.demo.Response.Result;
 import com.example.demo.Response.ResultFactory;
@@ -54,26 +54,42 @@ public class DTController {
     @CrossOrigin
     @RequestMapping("/insertActivity")
     public Result addStudent(@RequestBody Activity activity) {
-        activity.setA_id(UUID.randomUUID().toString().trim().replaceAll("-", ""));
+        activity.setUuid(UUID.randomUUID().toString().trim().replaceAll("-", ""));
         studentDao.insertActivity(activity);
+        return ResultFactory.buildSuccessResult(studentDao);
+    }
+
+    //新增人员
+    @CrossOrigin
+    @RequestMapping("/insertPeople")
+    public Result addPeople(@RequestBody People people) {
+        studentDao.insertPeople(people);
         return ResultFactory.buildSuccessResult(studentDao);
     }
 
     //删除
     @CrossOrigin
     @RequestMapping("/delete")
-    public Result deleteStudent(@RequestBody String sno) throws JSONException {
-        JSONObject json = new JSONObject(sno);
-        int num = (int) json.get("sno");
-        studentDao.delete(num);
-        return ResultFactory.buildSuccessResult(num);
+    public void deleteStudent(@RequestBody String deleteList) throws JSONException {
+        JSONObject json = new JSONObject(deleteList);
+        String uuid = (String) json.getJSONObject("deleteList").get("uuid");
+        String TableName = (String) json.getJSONObject("deleteList").get("tableName");
+        studentDao.delete(uuid, TableName);
     }
 
-    //修改
+    //修改人员信息
     @CrossOrigin
-    @RequestMapping("/update")
-    public Result updateStudent(@RequestBody Student student) {
-        studentDao.update(student);
+    @RequestMapping("/updatePeople")
+    public Result updateStudent(@RequestBody People people) {
+        studentDao.updatePeople(people);
+        return ResultFactory.buildSuccessResult(studentDao);
+    }
+
+    //修改活动信息
+    @CrossOrigin
+    @RequestMapping("/updateActivity")
+    public Result updateStudent(@RequestBody Activity activity) {
+        studentDao.updateActivity(activity);
         return ResultFactory.buildSuccessResult(studentDao);
     }
 
@@ -90,10 +106,11 @@ public class DTController {
     //单个查询
     @CrossOrigin
     @RequestMapping("/Studentquery")
-    public Result queryStd(@RequestBody String sno) throws JSONException {
-        JSONObject json = new JSONObject(sno);
-        int Ssno = (int) json.get("sno");
-        List<Student> StuList = studentDao.Stuquery(Ssno);
+    public Result queryStd(@RequestBody String queryList) throws JSONException {
+        JSONObject json = new JSONObject(queryList);
+        String TableName = (String) json.getJSONObject("queryList").get("tableName");
+        String name = (String) json.getJSONObject("queryList").get("name");
+        List<Map<String, Object>> StuList = studentDao.Stuquery(TableName, name);
         return ResultFactory.buildSuccessResult(StuList);
     }
 

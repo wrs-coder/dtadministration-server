@@ -1,7 +1,7 @@
 package com.example.demo.Dao;
 
 import com.example.demo.Model.Activity;
-import com.example.demo.Model.Student;
+import com.example.demo.Model.People;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -11,18 +11,24 @@ import java.util.Map;
 
 @Mapper
 public interface StudentDao {
-    //新增
+    //新增活动
     int insertActivity(Activity activity);
 
-    //删除
-    int delete(int num);
+    //新增人员
+    int insertPeople(People people);
 
-    //修改
-    int update(Student student);
+    //删除
+    int delete(String uuid, String TableName);
+
+    //修改人员
+    int updatePeople(People people);
+
+    //修改活动
+    int updateActivity(Activity activity);
 
     //查询所有学生信息
     List<Map<String, Object>> query(@Param(value = "TableName") String TableName);
 
     //单个查询
-    List<Student> Stuquery(int Ssno);
+    List<Map<String, Object>> Stuquery(String TableName, String name);
 }

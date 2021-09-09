@@ -3,19 +3,12 @@ package com.example.demo.Model;
 import java.util.UUID;
 
 public class Activity {
-    private String a_id;
-    private String a_name;
+    private String uuid;
+    private String name;
     private String startTime;
     private String endTime;
     private String number;
 
-    public String getA_name() {
-        return a_name;
-    }
-
-    public void setA_name(String a_name) {
-        this.a_name = a_name;
-    }
 
     public String getStartTime() {
         return startTime;
@@ -41,11 +34,19 @@ public class Activity {
         this.number = number;
     }
 
-    public String getA_id() {
-        return a_id;
+    public String getUuid() {
+        return uuid;
     }
 
-    public void setA_id(String a_id) {
-        this.a_id = a_id;
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }
