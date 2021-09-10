@@ -1,8 +1,11 @@
-package com.example.demo.Model;
+package com.example.demo.model;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/**
+ * @author Peter
+ */
 public class Users {
     private String username;
     private String password;

@@ -8,20 +8,25 @@ import org.springframework.web.servlet.config.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executors;
+
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 
 /**
  * 跨域请求支持/token拦截
  * tip:只能写在一个配置类里
+ *
+ * @author Peter
  */
 @Configuration
 public class WebConfiguration implements WebMvcConfigurer {
 
     private final TokenInterceptor tokenInterceptor;
 
-    //构造方法
-    public WebConfiguration(TokenInterceptor tokenInterceptor){
+    /**
+     * 构造方法
+     */
+    public WebConfiguration(TokenInterceptor tokenInterceptor) {
         this.tokenInterceptor = tokenInterceptor;
     }
 
@@ -35,17 +40,17 @@ public class WebConfiguration implements WebMvcConfigurer {
     }
 
     @Override
-    public void configureAsyncSupport(AsyncSupportConfigurer configurer){
+    public void configureAsyncSupport(AsyncSupportConfigurer configurer) {
         configurer.setTaskExecutor(new ConcurrentTaskExecutor(Executors.newFixedThreadPool(3)));
         configurer.setDefaultTimeout(30000);
     }
 
     @Override
-    public void addInterceptors(InterceptorRegistry registry){
+    public void addInterceptors(InterceptorRegistry registry) {
         List<String> excludePath = new ArrayList<>();
         //排除拦截
-        excludePath.add("/api/login");     //登录
-
+        excludePath.add("/api/login");
+        //登录
         registry.addInterceptor(tokenInterceptor)
                 .addPathPatterns("/**")
                 .excludePathPatterns(excludePath);

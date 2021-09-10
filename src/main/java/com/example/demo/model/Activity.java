@@ -1,7 +1,8 @@
-package com.example.demo.Model;
+package com.example.demo.model;
 
-import java.util.UUID;
-
+/**
+ * @author Peter
+ */
 public class Activity {
     private String uuid;
     private String name;

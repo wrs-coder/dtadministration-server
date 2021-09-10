@@ -1,5 +1,8 @@
-package com.example.demo.Response;
+package com.example.demo.response;
 
+/**
+ * @author Peter
+ */
 public class ResultFactory {
     public static Result buildSuccessResult(Object data) {
         return buildResult(ResultCode.SUCCESS, "成功", data);

@@ -1,11 +1,11 @@
-package com.example.demo.Controller;
+package com.example.demo.controller;
 
-import com.example.demo.Dao.StudentDao;
-import com.example.demo.Model.Activity;
-import com.example.demo.Model.People;
-import com.example.demo.Model.Users;
-import com.example.demo.Response.Result;
-import com.example.demo.Response.ResultFactory;
+import com.example.demo.dao.StudentDao;
+import com.example.demo.model.Activity;
+import com.example.demo.model.People;
+import com.example.demo.model.Users;
+import com.example.demo.response.Result;
+import com.example.demo.response.ResultFactory;
 import com.example.demo.utils.TokenUtil;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -18,16 +18,21 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+/**
+ * @author Peter
+ */
 @RestController
 @CrossOrigin
 @RequestMapping("/api")
-public class DTController {
+public class StudentController {
     @Autowired
     private StudentDao studentDao;
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    //登录
+    /**
+     * 登录
+     */
     @CrossOrigin
     @RequestMapping(value = "/login")
     public Result login(@RequestBody String form) throws JSONException {
@@ -45,12 +50,15 @@ public class DTController {
             hs.put("token", token);
             System.out.println("登录验证成功，返回token");
             return ResultFactory.buildSuccessResult(hs);
-        } else
+        } else {
             System.out.println("登录验证失败");
+        }
         return ResultFactory.buildSuccessResult(list);
     }
 
-    //新增活动
+    /**
+     * 新增活动
+     */
     @CrossOrigin
     @RequestMapping("/insertActivity")
     public Result addStudent(@RequestBody Activity activity) {
@@ -59,7 +67,9 @@ public class DTController {
         return ResultFactory.buildSuccessResult(studentDao);
     }
 
-    //新增人员
+    /**
+     * 新增人员
+     */
     @CrossOrigin
     @RequestMapping("/insertPeople")
     public Result addPeople(@RequestBody People people) {
@@ -67,17 +77,21 @@ public class DTController {
         return ResultFactory.buildSuccessResult(studentDao);
     }
 
-    //删除
+    /**
+     * 删除
+     */
     @CrossOrigin
     @RequestMapping("/delete")
     public void deleteStudent(@RequestBody String deleteList) throws JSONException {
         JSONObject json = new JSONObject(deleteList);
         String uuid = (String) json.getJSONObject("deleteList").get("uuid");
-        String TableName = (String) json.getJSONObject("deleteList").get("tableName");
-        studentDao.delete(uuid, TableName);
+        String tableName = (String) json.getJSONObject("deleteList").get("tableName");
+        studentDao.delete(uuid, tableName);
     }
 
-    //修改人员信息
+    /**
+     * 修改人员信息
+     */
     @CrossOrigin
     @RequestMapping("/updatePeople")
     public Result updateStudent(@RequestBody People people) {
@@ -85,7 +99,9 @@ public class DTController {
         return ResultFactory.buildSuccessResult(studentDao);
     }
 
-    //修改活动信息
+    /**
+     * 修改活动信息
+     */
     @CrossOrigin
     @RequestMapping("/updateActivity")
     public Result updateStudent(@RequestBody Activity activity) {
@@ -93,25 +109,29 @@ public class DTController {
         return ResultFactory.buildSuccessResult(studentDao);
     }
 
-    //查询
+    /**
+     * 查询
+     */
     @CrossOrigin
     @RequestMapping("/query")
     public Result queryAll(@RequestBody String tableName) throws JSONException {
         JSONObject json = new JSONObject(tableName);
-        String TableName = (String) json.get("tableName");
-        List<Map<String, Object>> list = studentDao.query(TableName);
+        String tablesName = (String) json.get("tableName");
+        List<Map<String, Object>> list = studentDao.query(tablesName);
         return ResultFactory.buildSuccessResult(list);
     }
 
-    //单个查询
+    /**
+     * 单个查询
+     */
     @CrossOrigin
-    @RequestMapping("/Studentquery")
+    @RequestMapping("/StudentQuery")
     public Result queryStd(@RequestBody String queryList) throws JSONException {
         JSONObject json = new JSONObject(queryList);
-        String TableName = (String) json.getJSONObject("queryList").get("tableName");
+        String tableName = (String) json.getJSONObject("queryList").get("tableName");
         String name = (String) json.getJSONObject("queryList").get("name");
-        List<Map<String, Object>> StuList = studentDao.Stuquery(TableName, name);
-        return ResultFactory.buildSuccessResult(StuList);
+        List<Map<String, Object>> stuList = studentDao.stuQuery(tableName, name);
+        return ResultFactory.buildSuccessResult(stuList);
     }
 
 }

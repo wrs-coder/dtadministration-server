@@ -1,14 +1,20 @@
 package com.example.demo.utils;
+
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
-import java.util.Date;
-import com.example.demo.Model.Users;
 
+import java.util.Date;
+
+import com.example.demo.model.Users;
+
+/**
+ * @author Peter
+ */
 public class TokenUtil {
     private static final long EXPIRE_TIME = 10 * 60 * 60 * 1000;
-    private static final String TOKEN_SECRET = "txdy";  //密钥盐
+    private static final String TOKEN_SECRET = "txdy";
 
     /**
      * 签名生成

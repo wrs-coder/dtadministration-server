@@ -1,5 +1,8 @@
-package com.example.demo.Model;
+package com.example.demo.model;
 
+/**
+ * @author Peter
+ */
 public class People {
     private String uuid;
     private String org_name;

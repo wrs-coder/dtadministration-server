@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.example.demo.Dao.StudentDao">
+<mapper namespace="com.example.demo.dao.StudentDao">
     <!-- 查询 -->
     <select id="query" resultType="map">
         select *
-        from ${TableName};
+        from ${tablesName};
     </select>
 
     <!-- 新增人员 -->
-    <insert id="insertPeople" parameterType="com.example.demo.Model.People">
+    <insert id="insertPeople" parameterType="com.example.demo.model.People">
         insert into DT_people( uuid, org_name, org_present, name, sex, nation, birthday, card, nativtion, address
                              , telephone, workplace, type, sqrd_time, jjfz_time, fzdx_time, rd_time)
         values (#{uuid}, #{org_name}, #{org_present}, #{name}, #{sex}, #{nation}, #{birthday}, #{card}, #{nativtion},
@@ -17,7 +17,7 @@
     </insert>
 
     <!-- 新增活动 -->
-    <insert id="insertActivity" parameterType="com.example.demo.Model.Activity">
+    <insert id="insertActivity" parameterType="com.example.demo.model.Activity">
         insert into DT_activity(uuid, name, startTime, endTime, number)
         values (#{uuid}, #{name}, #{startTime}, #{endTime}, #{number});
     </insert>
@@ -25,20 +25,20 @@
     <!-- 删除 -->
     <delete id="delete" parameterType="integer">
         delete
-        from ${TableName}
+        from ${tableName}
         where uuid = #{uuid};
     </delete>
 
     <!-- 单个查询 -->
-    <select id="Stuquery" resultType="map">
+    <select id="stuQuery" resultType="map">
         select *
-        from ${TableName}
+        from ${tableName}
         where name = #{name}
            or uuid = #{name};
     </select>
 
     <!--修改人员信息-->
-    <update id="updatePeople" parameterType="com.example.demo.Model.Activity">
+    <update id="updatePeople" parameterType="com.example.demo.model.Activity">
         update
             DT_people
         SET uuid        = #{uuid},
@@ -62,7 +62,7 @@
     </update>
 
     <!--修改活动信息-->
-    <update id="updateActivity" parameterType="com.example.demo.Model.Activity">
+    <update id="updateActivity" parameterType="com.example.demo.model.Activity">
         update
             DT_activity
         SET name      = #{name},

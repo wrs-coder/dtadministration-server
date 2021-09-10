@@ -1,5 +1,8 @@
-package com.example.demo.Response;
+package com.example.demo.response;
 
+/**
+ * @author Peter
+ */
 public class Result {
     private int code;
 
