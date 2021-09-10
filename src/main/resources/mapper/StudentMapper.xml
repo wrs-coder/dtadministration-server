@@ -41,8 +41,7 @@
     <update id="updatePeople" parameterType="com.example.demo.model.Activity">
         update
             DT_people
-        SET uuid        = #{uuid},
-            org_name    = #{org_name},
+        SET org_name    = #{org_name},
             org_present = #{org_present},
             name        = #{name},
             sex         = #{sex},
