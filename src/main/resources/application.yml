@@ -9,6 +9,6 @@ spring:
     type: com.alibaba.druid.pool.DruidDataSource
 
 mybatis:
-  type-aliases-package: com.example.demo.Model          # 所有实体类所在包路径
+  type-aliases-package: com.example.demo.model          # 所有实体类所在包路径
   mapper-locations: classpath:mapper/*.xml      # mapper映射文件
 
