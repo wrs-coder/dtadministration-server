@@ -60,12 +60,10 @@ public class StudentDaoService {
         return std.query(tablesName);
     }
 
-
     /**
      * 单个查询
      */
     public List<Map<String, Object>> stuQuery(String tableName, String name) {
         return std.stuQuery(tableName, name);
     }
-
 }

@@ -133,5 +133,4 @@ public class StudentController {
         List<Map<String, Object>> stuList = studentDao.stuQuery(tableName, name);
         return ResultFactory.buildSuccessResult(stuList);
     }
-
 }
