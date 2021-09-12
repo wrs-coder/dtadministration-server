@@ -19,6 +19,14 @@ public class StudentDaoService {
     private StudentDao std;
 
     /**
+     * 查询
+     */
+    public List<Map<String, Object>> search(String tableName, String type, String content) {
+        return std.search(tableName, type, content);
+    }
+
+
+    /**
      * 新增活动
      */
     public int insertActivity(Activity activity) {

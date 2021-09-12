@@ -15,6 +15,16 @@ import java.util.Map;
 @Mapper
 public interface StudentDao {
     /**
+     * 搜索
+     *
+     * @param tableName 搜索表名
+     * @param type       搜索类型
+     * @param content   搜索值
+     * @return 查询到结果的list
+     */
+    List<Map<String, Object>> search(String tableName, String type, String content);
+
+    /**
      * 新增活动
      *
      * @param activity 实例化一个活动对象

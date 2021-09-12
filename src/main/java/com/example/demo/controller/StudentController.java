@@ -57,11 +57,25 @@ public class StudentController {
     }
 
     /**
+     * 搜索
+     */
+    @CrossOrigin
+    @RequestMapping("/search")
+    public Result search(@RequestBody String searchList) throws JSONException {
+        JSONObject json = new JSONObject(searchList);
+        String tableName = (String) json.get("tableName");
+        String type = (String) json.get("type");
+        String content = (String) json.get("content");
+            List<Map<String, Object>> list = studentDao.search(tableName, type, content);
+            return ResultFactory.buildSuccessResult(list);
+    }
+
+    /**
      * 新增活动
      */
     @CrossOrigin
     @RequestMapping("/insertActivity")
-    public Result addStudent(@RequestBody Activity activity) {
+    public Result insertActivity(@RequestBody Activity activity) {
         activity.setUuid(UUID.randomUUID().toString().trim().replaceAll("-", ""));
         studentDao.insertActivity(activity);
         return ResultFactory.buildSuccessResult(studentDao);
@@ -72,7 +86,7 @@ public class StudentController {
      */
     @CrossOrigin
     @RequestMapping("/insertPeople")
-    public Result addPeople(@RequestBody People people) {
+    public Result insertPeople(@RequestBody People people) {
         studentDao.insertPeople(people);
         return ResultFactory.buildSuccessResult(studentDao);
     }
@@ -82,7 +96,7 @@ public class StudentController {
      */
     @CrossOrigin
     @RequestMapping("/delete")
-    public void deleteStudent(@RequestBody String deleteList) throws JSONException {
+    public void delete(@RequestBody String deleteList) throws JSONException {
         JSONObject json = new JSONObject(deleteList);
         String uuid = (String) json.getJSONObject("deleteList").get("uuid");
         String tableName = (String) json.getJSONObject("deleteList").get("tableName");
@@ -94,7 +108,7 @@ public class StudentController {
      */
     @CrossOrigin
     @RequestMapping("/updatePeople")
-    public Result updateStudent(@RequestBody People people) {
+    public Result updatePeople(@RequestBody People people) {
         studentDao.updatePeople(people);
         return ResultFactory.buildSuccessResult(studentDao);
     }
@@ -104,7 +118,7 @@ public class StudentController {
      */
     @CrossOrigin
     @RequestMapping("/updateActivity")
-    public Result updateStudent(@RequestBody Activity activity) {
+    public Result updateActivity(@RequestBody Activity activity) {
         studentDao.updateActivity(activity);
         return ResultFactory.buildSuccessResult(studentDao);
     }
@@ -114,7 +128,7 @@ public class StudentController {
      */
     @CrossOrigin
     @RequestMapping("/query")
-    public Result queryAll(@RequestBody String tableName) throws JSONException {
+    public Result query(@RequestBody String tableName) throws JSONException {
         JSONObject json = new JSONObject(tableName);
         String tablesName = (String) json.get("tableName");
         List<Map<String, Object>> list = studentDao.query(tablesName);
@@ -126,7 +140,7 @@ public class StudentController {
      */
     @CrossOrigin
     @RequestMapping("/StudentQuery")
-    public Result queryStd(@RequestBody String queryList) throws JSONException {
+    public Result StudentQuery(@RequestBody String queryList) throws JSONException {
         JSONObject json = new JSONObject(queryList);
         String tableName = (String) json.getJSONObject("queryList").get("tableName");
         String name = (String) json.getJSONObject("queryList").get("name");
