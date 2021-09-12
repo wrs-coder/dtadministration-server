@@ -13,10 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * @author Peter
@@ -66,8 +63,8 @@ public class StudentController {
         String tableName = (String) json.get("tableName");
         String type = (String) json.get("type");
         String content = (String) json.get("content");
-            List<Map<String, Object>> list = studentDao.search(tableName, type, content);
-            return ResultFactory.buildSuccessResult(list);
+        List<Map<String, Object>> list = studentDao.search(tableName, type, content);
+        return ResultFactory.buildSuccessResult(list);
     }
 
     /**
@@ -146,5 +143,15 @@ public class StudentController {
         String name = (String) json.getJSONObject("queryList").get("name");
         List<Map<String, Object>> stuList = studentDao.stuQuery(tableName, name);
         return ResultFactory.buildSuccessResult(stuList);
+    }
+
+    /**
+     * 查询各部分人员占比
+     */
+    @CrossOrigin
+    @RequestMapping("/queryPercent")
+    public Result queryPercent() {
+        List<Map<String, Object>> list = studentDao.queryPercent();
+        return ResultFactory.buildSuccessResult(list);
     }
 }

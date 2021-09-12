@@ -5,6 +5,7 @@ import com.example.demo.model.People;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -18,7 +19,7 @@ public interface StudentDao {
      * 搜索
      *
      * @param tableName 搜索表名
-     * @param type       搜索类型
+     * @param type      搜索类型
      * @param content   搜索值
      * @return 查询到结果的list
      */
@@ -81,4 +82,11 @@ public interface StudentDao {
      * @return 查询到结果的list
      */
     List<Map<String, Object>> stuQuery(String tableName, String name);
+
+    /**
+     * 查询各部分人员占比
+     *
+     * @return 查询到结果的list
+     */
+    List<Map<String, Object>> queryPercent();
 }
