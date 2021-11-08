@@ -8,7 +8,7 @@ public class Activity {
     private String name;
     private String startTime;
     private String endTime;
-    private String number;
+    private String member;
 
 
     public String getStartTime() {
@@ -27,12 +27,12 @@ public class Activity {
         this.endTime = endTime;
     }
 
-    public String getNumber() {
-        return number;
+    public String getMember() {
+        return member;
     }
 
-    public void setNumber(String number) {
-        this.number = number;
+    public void setMember(String member) {
+        this.member = member;
     }
 
     public String getUuid() {
@@ -50,4 +50,6 @@ public class Activity {
     public void setName(String name) {
         this.name = name;
     }
+
+
 }

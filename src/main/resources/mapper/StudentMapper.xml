@@ -30,8 +30,8 @@
 
     <!-- 新增活动 -->
     <insert id="insertActivity" parameterType="com.example.demo.model.Activity">
-        insert into DT_activity(uuid, name, startTime, endTime, number)
-        values (#{uuid}, #{name}, #{startTime}, #{endTime}, #{number});
+        insert into DT_activity(uuid, name, startTime, endTime, member)
+        values (#{uuid}, #{name}, #{startTime}, #{endTime}, #{member});
     </insert>
 
     <!-- 删除 -->
@@ -79,13 +79,13 @@
         SET name      = #{name},
             startTime = #{startTime},
             endTime   = #{endTime},
-            number    = #{number}
+            member    = #{member}
         WHERE uuid = #{uuid};
     </update>
 
     <!-- 查询各部分人员占比 -->
     <select id="queryPercent" resultType="map">
-        select count(*) total,
+        select count(*)                                              total,
                count(case when type = '入党积极分子' then 1 else null end) aCount,
                count(case when type = '发展对象' then 1 else null end)   bCount,
                count(case when type = '预备党员' then 1 else null end)   cCount,
