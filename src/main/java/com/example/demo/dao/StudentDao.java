@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -89,4 +90,6 @@ public interface StudentDao {
      * @return 查询到结果的list
      */
     List<Map<String, Object>> queryPercent();
+
+    int insertMember(String sno,String activityName);
 }

@@ -74,6 +74,19 @@ public class StudentController {
     @RequestMapping("/insertActivity")
     public Result insertActivity(@RequestBody Activity activity) {
         activity.setUuid(UUID.randomUUID().toString().trim().replaceAll("-", ""));
+        String member = activity.getMember();
+        StringTokenizer st = new StringTokenizer(member, ",");//selWarehouse是传入的字符串，含有逗号
+        HashMap<String, Object> map = new HashMap<>();
+        String sno;
+        String activityName = activity.getName();;
+        while (st.hasMoreElements()) {
+            //System.out.println(st.nextToken());
+            map.put(activity.getName(), st.nextToken());
+            //System.out.println(map);
+            sno = (String) map.get(activity.getName());
+            //System.out.println(sno);
+            studentDao.insertMember(sno,activityName);
+        }
         studentDao.insertActivity(activity);
         return ResultFactory.buildSuccessResult(studentDao);
     }
@@ -141,6 +154,7 @@ public class StudentController {
         JSONObject json = new JSONObject(queryList);
         String tableName = (String) json.getJSONObject("queryList").get("tableName");
         String name = (String) json.getJSONObject("queryList").get("name");
+        System.out.println(queryList);
         List<Map<String, Object>> stuList = studentDao.stuQuery(tableName, name);
         return ResultFactory.buildSuccessResult(stuList);
     }

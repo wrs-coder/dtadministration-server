@@ -92,4 +92,10 @@
                count(case when type = '党员' then 1 else null end)     dCount
         from DT_people
     </select>
+
+    <!--添加活动人员-->
+    <insert id="insertMember">
+        insert into DT_member(sno,activityName)
+        values (#{sno},#{activityName});
+    </insert>
 </mapper>
