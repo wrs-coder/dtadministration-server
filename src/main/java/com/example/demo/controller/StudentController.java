@@ -78,13 +78,10 @@ public class StudentController {
         StringTokenizer st = new StringTokenizer(member, ",");//selWarehouse是传入的字符串，含有逗号
         HashMap<String, Object> map = new HashMap<>();
         String sno;
-        String activityName = activity.getName();;
+        String activityName = activity.getName();
         while (st.hasMoreElements()) {
-            //System.out.println(st.nextToken());
             map.put(activity.getName(), st.nextToken());
-            //System.out.println(map);
             sno = (String) map.get(activity.getName());
-            //System.out.println(sno);
             studentDao.insertMember(sno,activityName);
         }
         studentDao.insertActivity(activity);
@@ -154,7 +151,6 @@ public class StudentController {
         JSONObject json = new JSONObject(queryList);
         String tableName = (String) json.getJSONObject("queryList").get("tableName");
         String name = (String) json.getJSONObject("queryList").get("name");
-        System.out.println(queryList);
         List<Map<String, Object>> stuList = studentDao.stuQuery(tableName, name);
         return ResultFactory.buildSuccessResult(stuList);
     }
@@ -166,6 +162,19 @@ public class StudentController {
     @RequestMapping("/queryPercent")
     public Result queryPercent() {
         List<Map<String, Object>> list = studentDao.queryPercent();
+        return ResultFactory.buildSuccessResult(list);
+    }
+
+    /**
+     * 查询活动具体人员
+     */
+    @CrossOrigin
+    @RequestMapping("/queryPeople")
+    public Result queryPeople(@RequestBody String queryList) throws JSONException {
+        JSONObject json = new JSONObject(queryList);
+        String tableName = (String) json.getJSONObject("queryList").get("tableName");
+        String name = (String) json.getJSONObject("queryList").get("name");
+        List<Map<String, Object>> list = studentDao.queryPeople(tableName, name);
         return ResultFactory.buildSuccessResult(list);
     }
 }

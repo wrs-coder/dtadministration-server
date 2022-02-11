@@ -4,9 +4,6 @@ import com.example.demo.model.Activity;
 import com.example.demo.model.People;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -91,5 +88,17 @@ public interface StudentDao {
      */
     List<Map<String, Object>> queryPercent();
 
+    /**
+     * 添加活动人员
+     *
+     * @return 无
+     */
     int insertMember(String sno,String activityName);
+
+    /**
+     * 查询活动具体人员
+     *
+     * @return map
+     */
+    List<Map<String, Object>> queryPeople(String tableName, String name);
 }

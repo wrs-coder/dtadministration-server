@@ -95,7 +95,14 @@
 
     <!--添加活动人员-->
     <insert id="insertMember">
-        insert into DT_member(sno,activityName)
-        values (#{sno},#{activityName});
+        insert into DT_member(sno, activityName)
+        values (#{sno}, #{activityName});
     </insert>
+
+    <!--查询活动人员-->
+    <select id="queryPeople" resultType="map">
+        select *
+        from ${tableName}
+        where activityName = #{name};
+    </select>
 </mapper>

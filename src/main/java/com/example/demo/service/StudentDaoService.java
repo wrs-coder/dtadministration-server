@@ -6,8 +6,6 @@ import com.example.demo.model.People;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -84,7 +82,17 @@ public class StudentDaoService {
         return std.queryPercent();
     }
 
-    public int insertMember(String sno,String activityName){
-        return std.insertMember(sno,activityName);
+    /**
+     * 添加活动人员
+     */
+    public int insertMember(String sno, String activityName) {
+        return std.insertMember(sno, activityName);
+    }
+
+    /**
+     * 查询各部分人员占比
+     */
+    public List<Map<String, Object>> queryPeople(String tableName, String name) {
+        return std.queryPeople(tableName, name);
     }
 }
