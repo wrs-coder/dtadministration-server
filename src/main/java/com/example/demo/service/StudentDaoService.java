@@ -83,16 +83,16 @@ public class StudentDaoService {
     }
 
     /**
-     * 添加活动人员
-     */
-    public int insertMember(String sno, String activityName) {
-        return std.insertMember(sno, activityName);
-    }
-
-    /**
      * 查询各部分人员占比
      */
     public List<Map<String, Object>> queryPeople(String tableName, String name) {
         return std.queryPeople(tableName, name);
+    }
+
+    /**
+     * 查询活动的人员信息
+     */
+    public List<Object> queryStu(String tableName, String name) {
+        return std.queryStu(tableName, name);
     }
 }

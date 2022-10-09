@@ -37,7 +37,7 @@ public class StudentController {
         JSONObject object = new JSONObject(form);
         map.put("username", object.getJSONObject("form").get("username").toString());
         map.put("password", object.getJSONObject("form").get("password").toString());
-        String sql = "select username,password from DT_users where username = ? and password = ?";
+        String sql = "select username,password from sys_user where username = ? and password = ?";
         List<Map<String, Object>> list = jdbcTemplate.queryForList(sql, map.get("username"), map.get("password"));
         if (!list.isEmpty()) {
             String username = (String) map.get("username");
@@ -74,16 +74,6 @@ public class StudentController {
     @RequestMapping("/insertActivity")
     public Result insertActivity(@RequestBody Activity activity) {
         activity.setUuid(UUID.randomUUID().toString().trim().replaceAll("-", ""));
-        String member = activity.getMember();
-        StringTokenizer st = new StringTokenizer(member, ",");//selWarehouse是传入的字符串，含有逗号
-        HashMap<String, Object> map = new HashMap<>();
-        String sno;
-        String activityName = activity.getName();
-        while (st.hasMoreElements()) {
-            map.put(activity.getName(), st.nextToken());
-            sno = (String) map.get(activity.getName());
-            studentDao.insertMember(sno,activityName);
-        }
         studentDao.insertActivity(activity);
         return ResultFactory.buildSuccessResult(studentDao);
     }
@@ -176,5 +166,21 @@ public class StudentController {
         String name = (String) json.getJSONObject("queryList").get("name");
         List<Map<String, Object>> list = studentDao.queryPeople(tableName, name);
         return ResultFactory.buildSuccessResult(list);
+    }
+
+    @RequestMapping("/QueryData")
+    public Result QueryData(@RequestBody String queryList) {
+        try {
+            JSONObject json = new JSONObject(queryList);
+            List<Object> list = new ArrayList<>();
+            String tableName = String.valueOf(json.getJSONObject("querystuList").get("tableName"));
+            for (int i = 0; i < json.getJSONObject("querystuList").getJSONArray("name").length(); i++) {
+                list.add(studentDao.queryStu(tableName, json.getJSONObject("querystuList").getJSONArray("name").get(i).toString()));
+            }
+            return ResultFactory.buildSuccessResult(list);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResultFactory.buildResult(500, "服务器错误", 500);
+        }
     }
 }

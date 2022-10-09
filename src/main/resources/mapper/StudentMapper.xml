@@ -30,8 +30,8 @@
 
     <!-- 新增活动 -->
     <insert id="insertActivity" parameterType="com.example.demo.model.Activity">
-        insert into DT_activity(uuid, name, startTime, endTime, member)
-        values (#{uuid}, #{name}, #{startTime}, #{endTime}, #{member});
+        insert into DT_activity(uuid, activity_name, startTime, endTime, member)
+        values (#{uuid}, #{activity_name}, #{startTime}, #{endTime}, #{member});
     </insert>
 
     <!-- 删除 -->
@@ -46,14 +46,15 @@
         select *
         from ${tableName}
         where name = #{name}
-           or uuid = #{name};
+           or uuid = #{name}
+           or activity_name = #{name};
     </select>
 
     <!-- 修改人员信息 -->
     <update id="updatePeople" parameterType="com.example.demo.model.Activity">
         update
             DT_people
-        SET org_name    = #{org_name},
+        set org_name    = #{org_name},
             org_present = #{org_present},
             name        = #{name},
             sex         = #{sex},
@@ -69,40 +70,41 @@
             jjfz_time   = #{jjfz_time},
             fzdx_time   = #{fzdx_time},
             rd_time     = #{rd_time}
-        WHERE uuid = #{uuid};
+        where uuid = #{uuid};
     </update>
 
     <!-- 修改活动信息 -->
     <update id="updateActivity" parameterType="com.example.demo.model.Activity">
         update
             DT_activity
-        SET name      = #{name},
-            startTime = #{startTime},
-            endTime   = #{endTime},
-            member    = #{member}
-        WHERE uuid = #{uuid};
+        set activity_name = #{activity_name},
+            startTime     = #{startTime},
+            endTime       = #{endTime},
+            member        = #{member}
+        where uuid = #{uuid};
     </update>
 
     <!-- 查询各部分人员占比 -->
     <select id="queryPercent" resultType="map">
-        select count(*)                                              total,
+        select count(*)                                                    total,
                count(case when type = '入党积极分子' then 1 else null end) aCount,
-               count(case when type = '发展对象' then 1 else null end)   bCount,
-               count(case when type = '预备党员' then 1 else null end)   cCount,
-               count(case when type = '党员' then 1 else null end)     dCount
+               count(case when type = '发展对象' then 1 else null end)     bCount,
+               count(case when type = '中共预备党员' then 1 else null end) cCount,
+               count(case when type = '党员' then 1 else null end)         dCount
         from DT_people
     </select>
-
-    <!--添加活动人员-->
-    <insert id="insertMember">
-        insert into DT_member(sno, activityName)
-        values (#{sno}, #{activityName});
-    </insert>
 
     <!--查询活动人员-->
     <select id="queryPeople" resultType="map">
         select *
         from ${tableName}
-        where activityName = #{name};
+        where activity_name = #{name};
+    </select>
+
+    <!--查询活动的人员信息-->
+    <select id="queryStu" resultType="map">
+        select *
+        from ${tableName}
+        where uuid = ${name}
     </select>
 </mapper>

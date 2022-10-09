@@ -5,7 +5,7 @@ package com.example.demo.model;
  */
 public class Activity {
     private String uuid;
-    private String name;
+    private String activity_name;
     private String startTime;
     private String endTime;
     private String member;
@@ -43,13 +43,11 @@ public class Activity {
         this.uuid = uuid;
     }
 
-    public String getName() {
-        return name;
+    public String getActivity_name() {
+        return activity_name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setActivity_name(String activity_name) {
+        this.activity_name = activity_name;
     }
-
-
 }

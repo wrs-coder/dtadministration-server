@@ -89,16 +89,16 @@ public interface StudentDao {
     List<Map<String, Object>> queryPercent();
 
     /**
-     * 添加活动人员
-     *
-     * @return 无
-     */
-    int insertMember(String sno,String activityName);
-
-    /**
      * 查询活动具体人员
      *
      * @return map
      */
     List<Map<String, Object>> queryPeople(String tableName, String name);
+
+    /**
+     * 查询活动的人员信息
+     *
+     * @return list
+     */
+    List<Object> queryStu(String tableName, String name);
 }
