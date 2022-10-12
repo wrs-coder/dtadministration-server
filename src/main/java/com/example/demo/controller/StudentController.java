@@ -117,7 +117,7 @@ public class StudentController {
     @RequestMapping("/updateActivity")
     public Result updateActivity(@RequestBody Activity activity) {
         studentDao.updateActivity(activity);
-        return ResultFactory.buildSuccessResult(studentDao);
+        return  ResultFactory.buildResult(200, "服务器错误", 200);
     }
 
     /**
